@@ -99,15 +99,27 @@ The Eastern Shore area: Accomack (51001), Northhampton (51131)
 library(knitr)
 library(dplyr)
 library(tidyverse)
-library(pscl)
 library(plotly)
-library(itsmr)
-library(forecast)
 library(gridExtra)
-library(urca)
 library(vars)
+library(urca)
+library(MASS)
 library(stargazer)
 library(sf)
+library(stringi)
+library(leaflet)
+library(raster)
+library(tmap)
+library(mapdeck)
+library(mapview)
+library(RColorBrewer)
+library(ggplot2)
+library(gganimate)
+library(gapminder)
+library(transformr)
+library(gifski)
+library(ggrepel)
+library(hrbrthemes)
 ```
 
   This was to load the average temperature data 
@@ -146,3 +158,76 @@ ggplot() +
 * Lastly, a gif of my life this week 
 
   ![](https://media.giphy.com/media/3o7TKJ7stEm0x8LYOc/giphy.gif)
+  
+# Week Two and Three
+
+After spending most of week two figuring out the data mapping. I worked on the animated map this week and spent more time trying to figure out why my map was displaying two labels for one frame during the animation process. I finally got it to work last night but am now dealing with a .nc read problem with the DAYMET dataset. This should be faster once I can read it into R. I am excited to work on the strips and yearly average data for the NOAA dataset. 
+
+## My code and the animated map for july are below.
+
+```{r}
+climcounty <- rename(climcounty, Fipsyear=V1, Jan=V2, Feb=V3, Mar=V4, Apr=V5, May=V6, Jun=V7, Jul=V8, Aug=V9, Sep=V10, Oct=V11, Nov=V12, Dec=V13)
+```
+
+```{r filter counties}
+countyavgtemp <- climcounty %>% filter(Fipsyear %in% c(44540021895:44540022021, 44003021895:44003022021, 44065021895:44065022021, 44079021895:44079022021, 44109021895:44109022021, 44125021895:44125022021, 44001021895:44001022021, 44131021895:44131022021))
+```
+
+
+```{r}
+countyavgtemp1 <- countyavgtemp %>%
+  group_by(Fipsyear) %>% mutate(year = as.numeric(str_sub(Fipsyear, 8, )), CNTY_FIPS = str_sub(Fipsyear, 3, -7))
+```
+
+```{r}
+countyavgtemp1 <- countyavgtemp1 %>%
+                      dplyr::select(CNTY_FIPS, year, Jan, Feb,
+                                Mar, Apr, May, Jun, Jul, Aug, Sep,
+                                Oct, Nov, Dec, Fipsyear)
+```
+
+```{r}
+ccshapegf <- left_join(ccshape1, countyavgtemp1, by ="CNTY_FIPS")
+```
+
+
+```{r}
+countyavgsf <- st_as_sf(ccshapegf)
+```
+
+```{r}
+ccshapegf <- cbind(ccshapegf, st_coordinates(st_centroid(ccshapegf)))
+```
+
+
+```{r}
+ccshapeggf <- 
+  ggplot(ccshapegf) +
+  geom_sf(aes(fill = Jul), color = "black", alpha = .9) +
+   geom_text_repel(data = ccshapegf, aes(X, Y, label = NAME), size = 4, nudge_x = 1, nudge_y = 0, fontface = "bold", hjust = 0.9) +
+  scale_fill_fermenter(palette = "YlOrRd", direction = 1,   type = "seq", n.breaks = 8) +
+     theme_void() +
+  guides(fill =
+           guide_colourbar(title.position="top", title.hjust = 0.5,
+                           barwidth = 1)
+  )  + 
+  labs(fill = "Temperature ", title = 'Year: {frame_time}',
+       caption = "Average temperature in July for 7 Counties") + 
+ transition_time(as.integer(year)) +
+ease_aes('linear') 
+```
+
+```{r}
+animate(ccshapeggf, fps = 1, detail = 1, nframes = 127)
+```
+
+
+### Goals for this Week 
+
+* Finish the DAYMET data clean.
+
+* Work on the creating the stripes and a yearly average temperature data to create a new animation.
+
+* Create the rmd scripts, csv output data, and data review file for NOAA and DAYMET. 
+
+* Work on the new goals for this week. 
