@@ -127,6 +127,7 @@ library(zoo)
 library(tidyselect)
 ```
 
+
   This was to load the average temperature data 
 ```{r load new data}
 climcounty <- read.table(file = "climdiv-tmpccy-v1.0.0-20210604.txt", header = FALSE)
@@ -399,7 +400,7 @@ cville_sf1x <- cville_sf1x[ , -which(names(cville_sf1x) %in% c("date1","date2", 
 cville_sf1x <- xts(x = cville_sf1x, order.by = cville_sf1x$date)
 ```
 
-```{r, fig.width=5, fig.height=2,  message=FALSE, warning=FALSE}
+```{r graph, fig.width=3, fig.height=2,  message=FALSE, warning=FALSE}
 dygraph(cville_sf1x, main = "Minimum Temperature in July across Counties for all Years", ylab = "Temperature (F)") %>%
   dySeries("Greene", label = "Greene") %>%
   dySeries("Albemarle", label = "Albemarle") %>%
@@ -411,7 +412,7 @@ dygraph(cville_sf1x, main = "Minimum Temperature in July across Counties for all
               highlightSeriesBackgroundAlpha = 0.2,
               hideOnMouseOut = FALSE, highlightSeriesOpts = list(strokeWidth = 3)) %>% 
 dyLegend(show = "always", hideOnMouseOut = FALSE, width = 400) %>% 
-    dyRangeSelector(height = 10) %>%  dyOptions(colors = RColorBrewer::brewer.pal(6, "Set2"))
+    dyRangeSelector(height = 20) %>%  dyOptions(colors = RColorBrewer::brewer.pal(6, "Set2"))
 ```
 
 ```{r, results = "asis"}
@@ -607,7 +608,7 @@ cville_sf1xm <- cville_sf1xm[ , -which(names(cville_sf1xm) %in% c("date1","date2
 cville_sf1xm <- xts(x = cville_sf1xm, order.by = cville_sf1xm$date)
 ```
 
-```{r, fig.width=5, fig.height=2, message=FALSE, warning=FALSE}
+```{r graph1, fig.width=3, fig.height=2, message=FALSE, warning=FALSE}
 dygraph(cville_sf1xm, main = "Average Yearly Minimum Temperature across Counties for all Years", ylab = "Temperature (F)") %>%
   dySeries("Greene", label = "Greene") %>%
   dySeries("Albemarle", label = "Albemarle") %>%
@@ -619,7 +620,7 @@ dygraph(cville_sf1xm, main = "Average Yearly Minimum Temperature across Counties
               highlightSeriesBackgroundAlpha = 0.2,
               hideOnMouseOut = FALSE, highlightSeriesOpts = list(strokeWidth = 3)) %>% 
 dyLegend(show = "always", hideOnMouseOut = FALSE, width = 400) %>% 
-    dyRangeSelector(height = 10) %>%  dyOptions(colors = RColorBrewer::brewer.pal(6, "Set2"))
+    dyRangeSelector(height = 20) %>%  dyOptions(colors = RColorBrewer::brewer.pal(6, "Set2"))
 ```
 
 ```{r, results = "asis"}
@@ -664,7 +665,7 @@ cville_sf1xp <- cville_sf1xp[ , -which(names(cville_sf1xp) %in% c("date1","date2
 cville_sf1xp <- xts(x = cville_sf1xp, order.by = cville_sf1xp$date)
 ```
 
-```{r, fig.width=5, fig.height=2, message=FALSE, warning=FALSE}
+```{r graph2, fig.width=3, fig.height=2, message=FALSE, warning=FALSE}
 dygraph(cville_sf1xp, main = "Total Yearly Precipitation across Counties for all Years", ylab = "Precipitation") %>%
   dySeries("Greene", label = "Greene") %>%
   dySeries("Albemarle", label = "Albemarle") %>%
@@ -676,7 +677,7 @@ dygraph(cville_sf1xp, main = "Total Yearly Precipitation across Counties for all
               highlightSeriesBackgroundAlpha = 0.2,
               hideOnMouseOut = FALSE, highlightSeriesOpts = list(strokeWidth = 3)) %>% 
 dyLegend(show = "always", hideOnMouseOut = FALSE, width = 400) %>% 
-    dyRangeSelector(height = 10) %>%  dyOptions(colors = RColorBrewer::brewer.pal(6, "Set2"))
+    dyRangeSelector(height = 20) %>%  dyOptions(colors = RColorBrewer::brewer.pal(6, "Set2"))
 ```
 
 ```{r, results = "asis"}
@@ -837,7 +838,7 @@ eastern_sf1x <- eastern_sf1x[ , -which(names(eastern_sf1x) %in% c("date1", "NAME
 eastern_sf1x <- xts(x = eastern_sf1x, order.by = eastern_sf1x$date)
 ```
 
-```{r, fig.width=5, fig.height=2, message=FALSE, warning=FALSE}
+```{r graph3, fig.width=3, fig.height=2, message=FALSE, warning=FALSE}
 dygraph(eastern_sf1x, main = "Minimum Temperature in July across Counties for all Years", ylab = "Temperature (F)") %>%
   dySeries("Accomack", label = "Accomack") %>%
   dySeries("Northampton", label = "Northampton") %>%
@@ -845,7 +846,7 @@ dygraph(eastern_sf1x, main = "Minimum Temperature in July across Counties for al
               highlightSeriesBackgroundAlpha = 0.2,
               hideOnMouseOut = FALSE, highlightSeriesOpts = list(strokeWidth = 3)) %>% 
 dyLegend(show = "always", hideOnMouseOut = FALSE, width = 400) %>% 
-    dyRangeSelector(height = 10) %>%  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
+    dyRangeSelector(height = 20) %>%  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
 ```
 
 ### Average Yearly Temperatures 
@@ -952,7 +953,7 @@ eastern_sf1xm <- eastern_sf1xm[ , -which(names(eastern_sf1xm) %in% c("date1", "N
 eastern_sf1xm <- xts(x = eastern_sf1xm, order.by = eastern_sf1xm$date)
 ```
 
-```{r}
+```{r graph4, fig.width=3, fig.height=2, message=FALSE, warning=FALSE}
 dygraph(eastern_sf1xm, main = "Average Yearly Minimum Temperature across Counties for all Years", ylab = "Temperature (F)") %>%
   dySeries("Accomack", label = "Accomack") %>%
   dySeries("Northampton", label = "Northampton") %>%
@@ -960,7 +961,7 @@ dygraph(eastern_sf1xm, main = "Average Yearly Minimum Temperature across Countie
               highlightSeriesBackgroundAlpha = 0.2,
               hideOnMouseOut = FALSE, highlightSeriesOpts = list(strokeWidth = 3)) %>% 
 dyLegend(show = "always", hideOnMouseOut = FALSE, width = 400) %>% 
-    dyRangeSelector(height = 10) %>%  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
+    dyRangeSelector(height = 20) %>%  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
 ```
 
 ```{r, results = "asis"}
@@ -997,7 +998,7 @@ eastern_sf1xp <- eastern_sf1xp[ , -which(names(eastern_sf1xp) %in% c("date1", "N
 eastern_sf1xp <- xts(x = eastern_sf1xp, order.by = eastern_sf1xp$date)
 ```
 
-```{r, fig.width=5, fig.height=2, message=FALSE, warning=FALSE}
+```{r graph5, fig.width=3, fig.height=2, message=FALSE, warning=FALSE}
 dygraph(eastern_sf1xp, main = "Total Yearly Precipitation across Counties for all Years", ylab = "Precipitation") %>%
   dySeries("Accomack", label = "Accomack") %>%
   dySeries("Northampton", label = "Northampton") %>%
@@ -1005,5 +1006,5 @@ dygraph(eastern_sf1xp, main = "Total Yearly Precipitation across Counties for al
               highlightSeriesBackgroundAlpha = 0.2,
               hideOnMouseOut = FALSE, highlightSeriesOpts = list(strokeWidth = 3)) %>% 
 dyLegend(show = "always", hideOnMouseOut = FALSE, width = 400) %>% 
-    dyRangeSelector(height = 10) %>%  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
+    dyRangeSelector(height = 20) %>%  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
 ```
