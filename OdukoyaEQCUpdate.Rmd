@@ -1011,7 +1011,7 @@ dyLegend(show = "always", hideOnMouseOut = FALSE, width = 400) %>%
 
 ```{r, results = "asis"}
 meta %>%
-  filter(varname == "Avg_Tempmin") %>% 
+  filter(varname == "Tot_Temppcp") %>% 
   select(about) %>% 
   as.list()
 ```
