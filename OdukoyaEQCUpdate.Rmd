@@ -1008,3 +1008,10 @@ dygraph(eastern_sf1xp, main = "Total Yearly Precipitation across Counties for al
 dyLegend(show = "always", hideOnMouseOut = FALSE, width = 400) %>% 
     dyRangeSelector(height = 20) %>%  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set1"))
 ```
+
+```{r, results = "asis"}
+meta %>%
+  filter(varname == "Avg_Tempmin") %>% 
+  select(about) %>% 
+  as.list()
+```
