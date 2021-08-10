@@ -464,9 +464,12 @@ theme_strip <- theme_minimal()+
                        axis.title = element_blank(),
                        panel.grid.major = element_blank(),
                        legend.title = element_blank(),
-                       axis.text.x = element_text(vjust = 3),
+                       legend.text = element_text(size = 10),
+                       axis.text.x = element_text(vjust = 3, size = 10),
                        panel.grid.minor = element_blank(),
-                        plot.title = element_text(size = 14, face = "bold")
+                        plot.title = element_text(size = 15, face = "bold"),
+                       plot.caption = element_text(size = 10) 
+                     
                        )
 
 
@@ -888,9 +891,12 @@ theme_strip <- theme_minimal()+
                        axis.title = element_blank(),
                        panel.grid.major = element_blank(),
                        legend.title = element_blank(),
-                       axis.text.x = element_text(vjust = 3),
+                       legend.text = element_text(size = 10),
+                       axis.text.x = element_text(vjust = 3, size = 10),
                        panel.grid.minor = element_blank(),
-                        plot.title = element_text(size = 14, face = "bold")
+                        plot.title = element_text(size = 15, face = "bold"),
+                       plot.caption = element_text(size = 10) 
+                     
                        )
 
 
